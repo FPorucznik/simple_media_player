@@ -18,7 +18,7 @@ w razie dodania nowych funkcjonalności będzie o tym wspomniane w przyszłych r
 Ewentualne dodatkowe biblioteki potrzebne na rzecz rozwoju projektu zostaną dopisane
  
  ## To do
- - [x] instalacja biblioteki i przygotowanie jej do działania w środowisku Visual Studia 2019
+ - [x] instalacja biblioteki i przygotowanie jej do działania w środowisku Visual Studio 2019
  - [x] napisanie i wyświetlenie pierwszego okna
  - [ ] napisanie pierwszego podstawowego menu 
  ...

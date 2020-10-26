@@ -1,4 +1,15 @@
 #include "mainApp.h"
+#include "mFrame.h"
+
+IMPLEMENT_APP(mainApp)
+
+mainApp::mainApp() {
+
+}
+
+mainApp::~mainApp() {
+
+}
 
 bool mainApp::OnInit()
 {

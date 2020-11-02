@@ -1,7 +1,7 @@
 #pragma once
 #include "include.h"
 #include "wx/menu.h"
-#include <wx/notebook.h>
+
 
 class mFrame : public wxFrame
 {
@@ -12,8 +12,15 @@ public:
 
 	void OnQuit(wxCommandEvent& event);
 
+	void OnVideoOpen(wxCommandEvent& event);
+
 	wxMenuBar* menubar;
 	wxMenu* quit;
-	wxNotebook* tabs;
+
+	//do testu otwierania plików
+	wxTextCtrl* testCtrl;
+
+private:
+	DECLARE_EVENT_TABLE();
 };
 

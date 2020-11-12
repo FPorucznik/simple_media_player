@@ -1,9 +1,14 @@
 #include "mFrame.h"
 
+//id dla ró¿nych elementów
+enum {
+	wxID_MEDIACTRL
+};
+
 mFrame::mFrame(const wxString& title)
 	: wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(1100, 400)) 
 {
-
+	//pasek menu
 	menubar = new wxMenuBar;
 	quit = new wxMenu;
 	quit->Append(wxID_EXIT, wxT("&Quit"));
@@ -19,21 +24,18 @@ mFrame::mFrame(const wxString& title)
 	wxNotebook* contentTabs = new wxNotebook(panel, wxID_ANY);
 
 	//panel na odtwarzacz
-	wxPanel* playerPanel = new wxPanel(panel, wxID_ANY);
-	wxStaticText* message = new wxStaticText(playerPanel, wxID_ANY, wxT("Media will be displayed here"));
+	playerPanel = new wxPanel(panel, wxID_ANY);
+
+	//stworzenie naszego mediaCtrl i umieszczenie go w panelu bocznym
+	mediaCtrl = new wxMediaCtrl();
+	mediaCtrl->Create(playerPanel, wxID_MEDIACTRL, wxEmptyString, wxDefaultPosition, wxSize(550, 400), 0, wxMEDIABACKEND_WMP10);
+	mediaCtrl->ShowPlayerControls();
 	
-	//do celów testowych
-	testCtrl = new wxTextCtrl(playerPanel, wxID_ANY);
-
-
-	//testowanie obs³ugi mediów
-	//wxMediaCtrl* media = new wxMediaCtrl(playerPanel, wxID_ANY, wxT("testVid.mp4"));
-	//media->ShowPlayerControls();
-
 
 	//stworzenie paneli dla ka¿dej sekcji
 	wxPanel* videoCtrlPanel = new wxPanel(contentTabs);
 	wxButton* videoLoadBtn = new wxButton(videoCtrlPanel, 1, wxT("Load video"));
+
 	contentTabs->AddPage(videoCtrlPanel, wxT("Videos"));
 
 	wxPanel* musicCtrlPanel = new wxPanel(contentTabs);
@@ -61,17 +63,14 @@ mFrame::mFrame(const wxString& title)
 
 	//sizer dla sekcji odtwarzacza
 	wxBoxSizer* mediaPlayerSizer = new wxBoxSizer(wxVERTICAL);
-	mediaPlayerSizer->Add(message, 0, wxEXPAND);
-	mediaPlayerSizer->Add(testCtrl, 0, wxEXPAND);
+	mediaPlayerSizer->Add(mediaCtrl, 1, wxEXPAND);
 	playerPanel->SetSizer(mediaPlayerSizer);
 	//------------------------------------------------
-
-
 
 	//stworzenie grid sizera do wydzielenia sekcji zak³adek opcji do plkiów oraz sekcji odtwarzacza
 	wxGridSizer* panelSizer = new wxGridSizer(1, 2, 0, 0);
 	panelSizer->Add(contentTabs, 0, wxEXPAND);
-	panelSizer->Add(playerPanel, 1, wxEXPAND);
+	panelSizer->Add(playerPanel, 1, wxEXPAND | wxALL);
 	panel->SetSizer(panelSizer);
 
 
@@ -86,20 +85,20 @@ mFrame::mFrame(const wxString& title)
 mFrame::~mFrame() {
 }
 
+//metoda zamykaj¹ca program
 void mFrame::OnQuit(wxCommandEvent& WXUNUSED(event)) {
 	Close(true);
 }
-//testowanie otwierania pliku wideo
+//testowanie dialogu do otwierania pliku
 void mFrame::OnVideoOpen(wxCommandEvent& WXUNUSED(event)) {
-	wxFileDialog* openVideoFileDialog = new wxFileDialog(this);
+	openVideoFileDialog = new wxFileDialog(this, wxT("Open video file"), "", "", "MP3 and MP4 files (*.mp3;*.mp4)|*.mp3;*.mp4");
 
 	if (openVideoFileDialog->ShowModal() == wxID_OK) {
 		wxString fileName = openVideoFileDialog->GetPath();
-		testCtrl->SetValue(fileName);
+
 		delete openVideoFileDialog;
 	}
 }
-
 //deklaracja tabeli rejestruj¹cej wydarzenia i wywo³uj¹ca odpowiednie metody
 BEGIN_EVENT_TABLE(mFrame, wxFrame)
 	EVT_BUTTON(1, mFrame::OnVideoOpen)

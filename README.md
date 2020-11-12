@@ -23,9 +23,12 @@ Ewentualne dodatkowe biblioteki potrzebne na rzecz rozwoju projektu zostaną dop
  - [x] napisanie pierwszego podstawowego menu 
  - [x] projekt wstępnego layout'u obiektów w oknie
  - [x] dodanie responsywności obiektów a oknie
- - [ ] otwieranie plików wideo na panelu odtwarzacza
- - [ ] otwieranie plików dźwiękowych na panelu odtwarzacza
+ - [x] dodanie odtwarzacza do jednego z panelów
+ - [ ] oprogramowanie dialogu do załadowania plików w zależności od ich rodzajów
+ - [ ] odtwarzanie plików wideo na panelu odtwarzacza
+ - [ ] odtwarzanie plików dźwiękowych na panelu odtwarzacza
  - [ ] otwieranie obrazów na panelu odtwarzacza
+
  ...
  
  Następne zadania będą dodawane wraz z rozwojem projektu

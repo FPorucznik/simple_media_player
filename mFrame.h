@@ -15,6 +15,11 @@ public:
 	
 	//metody dotycz¹ce player'a
 	void OnVideoOpen(wxCommandEvent& event);
+	void OnMusicOpen(wxCommandEvent& event);
+	void OnImageOpen(wxCommandEvent& event);
+	void LoadFile(const wxString& path, const wxString& fileType);
+	void OnMediaLoaded(wxMediaEvent& event);
+	void OnMediaFinished(wxMediaEvent& event);
 
 	//komponenty menu na pasku
 	wxMenuBar* menubar;
@@ -23,14 +28,11 @@ public:
 	//kontroler mediów
 	wxMediaCtrl* mediaCtrl;
 
-	//dialog do otwierania plików (narazie testowo dodany)
-	wxFileDialog* openVideoFileDialog;
-
 	//panel na player'a
 	wxPanel* playerPanel;
 
-private:
-	//zadeklarowanie tabeli eventów wykorzystywanej przy obs³udze przycisków
-	DECLARE_EVENT_TABLE();
+	
+	bool loop; //zmienna boolowska czy zapêtlamy wyœwietlany plik (g³ównie do zdjêæ, które player zamyka³ po chwili)
+	wxFileOffset position; //tutaj przechowamy startow¹ pozycjê w czasie odtwarzanego pliku (dodane równie¿ z myœl¹ o zdjêciach aby player ich nie wy³¹cza³ po paru seknudach)
 };
 

@@ -2,7 +2,10 @@
 
 //id dla ró¿nych elementów
 enum {
-	wxID_MEDIACTRL
+	wxID_MEDIACTRL,
+	wxID_BUTTON_VIDEO_LOAD,
+	wxID_BUTTON_MUSIC_LOAD,
+	wxID_BUTTON_IMAGE_LOAD
 };
 
 mFrame::mFrame(const wxString& title)
@@ -29,21 +32,22 @@ mFrame::mFrame(const wxString& title)
 	//stworzenie naszego mediaCtrl i umieszczenie go w panelu bocznym
 	mediaCtrl = new wxMediaCtrl();
 	mediaCtrl->Create(playerPanel, wxID_MEDIACTRL, wxEmptyString, wxDefaultPosition, wxSize(550, 400), 0, wxMEDIABACKEND_WMP10);
-	mediaCtrl->ShowPlayerControls();
+	//mediaCtrl->ShowPlayerControls();
+	//ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_NONE);
 	
 
 	//stworzenie paneli dla ka¿dej sekcji
 	wxPanel* videoCtrlPanel = new wxPanel(contentTabs);
-	wxButton* videoLoadBtn = new wxButton(videoCtrlPanel, 1, wxT("Load video"));
+	wxButton* videoLoadBtn = new wxButton(videoCtrlPanel, wxID_BUTTON_VIDEO_LOAD, wxT("Load video"));
 
 	contentTabs->AddPage(videoCtrlPanel, wxT("Videos"));
 
 	wxPanel* musicCtrlPanel = new wxPanel(contentTabs);
-	wxButton* musicLoadBtn = new wxButton(musicCtrlPanel, wxID_ANY, wxT("Load music"));
+	wxButton* musicLoadBtn = new wxButton(musicCtrlPanel, wxID_BUTTON_MUSIC_LOAD, wxT("Load music"));
 	contentTabs->AddPage(musicCtrlPanel, wxT("Music"));
 
 	wxPanel* imagesCtrlPanel = new wxPanel(contentTabs);
-	wxButton* imageLoadBtn = new wxButton(imagesCtrlPanel, wxID_ANY, wxT("Load image"));
+	wxButton* imageLoadBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_IMAGE_LOAD, wxT("Load image"));
 	contentTabs->AddPage(imagesCtrlPanel, wxT("Images"));
 	//-----------------------------------------------
 
@@ -80,26 +84,69 @@ mFrame::mFrame(const wxString& title)
 	topSizer->Add(panel, 1, wxEXPAND);
 	SetSizerAndFit(topSizer);
 
-}
 
-mFrame::~mFrame() {
+	//po³¹czenie eventów z przyciskami i odpowiadaj¹cymi im metodami (lepszy sposób ni¿ tabela eventów)
+	Bind(wxEVT_MEDIA_LOADED, &mFrame::OnMediaLoaded, this, wxID_MEDIACTRL);
+	Bind(wxEVT_BUTTON, &mFrame::OnVideoOpen, this, wxID_BUTTON_VIDEO_LOAD);
+	Bind(wxEVT_BUTTON, &mFrame::OnMusicOpen, this, wxID_BUTTON_MUSIC_LOAD);
+	Bind(wxEVT_BUTTON, &mFrame::OnImageOpen, this, wxID_BUTTON_IMAGE_LOAD);
+	Bind(wxEVT_MEDIA_LOADED, &mFrame::OnMediaLoaded, this, wxID_MEDIACTRL);
+	Bind(wxEVT_MEDIA_FINISHED, &mFrame::OnMediaFinished, this, wxID_MEDIACTRL);
+
 }
 
 //metoda zamykaj¹ca program
 void mFrame::OnQuit(wxCommandEvent& WXUNUSED(event)) {
 	Close(true);
 }
-//testowanie dialogu do otwierania pliku
+//dialogi do otwierania plików w zale¿noœci od typu
 void mFrame::OnVideoOpen(wxCommandEvent& WXUNUSED(event)) {
-	openVideoFileDialog = new wxFileDialog(this, wxT("Open video file"), "", "", "MP3 and MP4 files (*.mp3;*.mp4)|*.mp3;*.mp4");
+	wxFileDialog videoFileDialog(this, wxT("Open video file"), "", "", "MP3 and MP4 files (*.mp3;*.mp4)|*.mp3;*.mp4");
 
-	if (openVideoFileDialog->ShowModal() == wxID_OK) {
-		wxString fileName = openVideoFileDialog->GetPath();
-
-		delete openVideoFileDialog;
+	if (videoFileDialog.ShowModal() == wxID_OK) {
+		LoadFile(videoFileDialog.GetPath(), "video");
 	}
 }
-//deklaracja tabeli rejestruj¹cej wydarzenia i wywo³uj¹ca odpowiednie metody
-BEGIN_EVENT_TABLE(mFrame, wxFrame)
-	EVT_BUTTON(1, mFrame::OnVideoOpen)
-END_EVENT_TABLE()
+void mFrame::OnMusicOpen(wxCommandEvent& WXUNUSED(event)) {
+	wxFileDialog musicFileDialog(this, wxT("Open music file"), "", "", "MP3,MP4,M4A,WAV files (*.mp3;*.mp4;*.m4a;*.wav)|*.mp3;*.mp4;*.m4a;*.wav");
+
+	if (musicFileDialog.ShowModal() == wxID_OK) {
+		LoadFile(musicFileDialog.GetPath(), "music");
+	}
+}
+void mFrame::OnImageOpen(wxCommandEvent& WXUNUSED(event)) {
+	wxFileDialog imageFileDialog(this, wxT("Open image file"), "", "", "JPEG,PNG,GIF files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif");
+
+	if (imageFileDialog.ShowModal() == wxID_OK) {
+		LoadFile(imageFileDialog.GetPath(), "image");
+	}
+}
+
+//metoda ³aduj¹ca plik i wyœwietlaj¹ca panel sterowania w zale¿noœci od typu
+void mFrame::LoadFile(const wxString& path, const wxString& fileType) {
+	if (fileType == "video" || fileType == "music") {
+		mediaCtrl->ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_DEFAULT);
+		loop = false;
+	}
+	else {
+		mediaCtrl->ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_NONE);
+		loop = true;
+	}
+	mediaCtrl->Load(path);
+}
+
+//metoda wywo³ywana gdy zostanie za³adowany plik i bêdzie gotowy do odtworzenia
+void mFrame::OnMediaLoaded(wxMediaEvent& WXUNUSED(event)) {
+	mediaCtrl->Play();
+	position = mediaCtrl->Tell();
+}
+
+//metoda wywo³ywana gdy zostanie wykryty koniec odtwarzanie otwartego pliku
+void mFrame::OnMediaFinished(wxMediaEvent& WXUNUSED(event)) {
+	if (loop) {
+		mediaCtrl->Seek(position);
+	}
+}
+
+mFrame::~mFrame() {
+}

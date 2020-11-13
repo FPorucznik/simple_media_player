@@ -24,10 +24,13 @@ Ewentualne dodatkowe biblioteki potrzebne na rzecz rozwoju projektu zostaną dop
  - [x] projekt wstępnego layout'u obiektów w oknie
  - [x] dodanie responsywności obiektów a oknie
  - [x] dodanie odtwarzacza do jednego z panelów
- - [ ] oprogramowanie dialogu do załadowania plików w zależności od ich rodzajów
- - [ ] odtwarzanie plików wideo na panelu odtwarzacza
- - [ ] odtwarzanie plików dźwiękowych na panelu odtwarzacza
- - [ ] otwieranie obrazów na panelu odtwarzacza
+ - [x] oprogramowanie dialogów do załadowania plików w zależności od ich rodzajów
+ - [x] odtwarzanie plików wideo na panelu odtwarzacza
+ - [x] odtwarzanie plików dźwiękowych na panelu odtwarzacza
+ - [x] otwieranie obrazów na panelu odtwarzacza
+ - [ ] dodanie w każdej sekcji (videos, music, images) pola umożliwiającego stworzenie playlisty
+ - [ ] zaprogramowanie możliwości dodania aktualnie otwartego pliku do playlisty oraz innych wybranych
+ - [ ] zaprogramowanie odtwarzania playlisty
 
  ...
  

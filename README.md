@@ -18,16 +18,20 @@ w razie dodania nowych funkcjonalności będzie o tym wspomniane w przyszłych r
 Ewentualne dodatkowe biblioteki potrzebne na rzecz rozwoju projektu zostaną dopisane
  
  ## To do
+ RAPORT I (3.11.2020)
  - [x] instalacja biblioteki i przygotowanie jej do działania w środowisku Visual Studio 2019
  - [x] napisanie i wyświetlenie pierwszego okna
  - [x] napisanie pierwszego podstawowego menu 
  - [x] projekt wstępnego layout'u obiektów w oknie
  - [x] dodanie responsywności obiektów a oknie
+---
+ RAPORT II (17.11.2020)
  - [x] dodanie odtwarzacza do jednego z panelów
  - [x] oprogramowanie dialogów do załadowania plików w zależności od ich rodzajów
  - [x] odtwarzanie plików wideo na panelu odtwarzacza
  - [x] odtwarzanie plików dźwiękowych na panelu odtwarzacza
  - [x] otwieranie obrazów na panelu odtwarzacza
+---
  - [ ] dodanie w każdej sekcji (videos, music, images) pola umożliwiającego stworzenie playlisty
  - [ ] zaprogramowanie możliwości dodania aktualnie otwartego pliku do playlisty oraz innych wybranych
  - [ ] zaprogramowanie odtwarzania playlisty

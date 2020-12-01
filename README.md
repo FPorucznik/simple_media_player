@@ -6,8 +6,8 @@ Planowana jest różnorodna funkcjonalność np. odtwarzanie filmów, muzyki lub
 	 - filmów ( w tym przewijanie i regulacja głośności )
 	 - muzyki ( w tym przewijanie i regulacja głośności )
 	 - obrazów
+- stwarzanie playlist wybranych plików
 - możliwość edycji obrazów i ich zapisu na dysk
-- stwarzanie playlist muzyki
 - biblioteka ulubionych plików 
 w razie dodania nowych funkcjonalności będzie o tym wspomniane w przyszłych raportach
 
@@ -32,9 +32,17 @@ Ewentualne dodatkowe biblioteki potrzebne na rzecz rozwoju projektu zostaną dop
  - [x] odtwarzanie plików dźwiękowych na panelu odtwarzacza
  - [x] otwieranie obrazów na panelu odtwarzacza
 ---
- - [ ] dodanie w każdej sekcji (videos, music, images) pola umożliwiającego stworzenie playlisty
- - [ ] zaprogramowanie możliwości dodania aktualnie otwartego pliku do playlisty oraz innych wybranych
+RAPORT III (1.12.2020)
+ - [x] dodanie w każdej sekcji (videos, music, images) pola umożliwiającego stworzenie playlisty
+ - [x] dodanie przycisków, które będą służyć do obsługi playlist
+ - [x] poprawa wyglądu sekcji (videos, music, images)
+ - [x] oprogramowanie responsywności nowo umieszczonych elementów 
+ - [x] zaprogramowanie możliwości dodania wybranego pliku do playlisty
+---
  - [ ] zaprogramowanie odtwarzania playlisty
+ - [ ] zaprogramowanie usuwania wybranych elementów z playlisty
+ - [ ] zaprogramowanie przycisków do zmiany kolejności plików w playliście
+ - [ ] rozpoczęcie pracy nad możliwością edycji zdjęć
 
  ...
  

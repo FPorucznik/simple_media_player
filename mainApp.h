@@ -1,7 +1,7 @@
 #pragma once
 #include "include.h"
 
-//g³ówna klasa aplikacji dziedzicz¹ca z klasy oferowanej przez bibliotekê zajmuj¹ca siê uruchamianiem programu
+//glowna klasa aplikacji dziedziczaca z klasy oferowanej przez biblioteke zajmuj¹ca sie uruchamianiem programu
 class mainApp : public wxApp
 {
 public:

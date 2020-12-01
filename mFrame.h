@@ -10,10 +10,10 @@ public:
 	mFrame();
 	~mFrame();
 
-	//metody eventów z menu
+	//metody eventow z menu
 	void OnQuit(wxCommandEvent& event);
 	
-	//metody dotycz¹ce player'a
+	//metody dotyczace player'a
 	void OnVideoOpen(wxCommandEvent& event);
 	void OnMusicOpen(wxCommandEvent& event);
 	void OnImageOpen(wxCommandEvent& event);
@@ -21,18 +21,28 @@ public:
 	void OnMediaLoaded(wxMediaEvent& event);
 	void OnMediaFinished(wxMediaEvent& event);
 
+	//metody dotyczace playlist
+	void OnVideoPlaylistAdd(wxCommandEvent& event);
+	void OnMusicPlaylistAdd(wxCommandEvent& event);
+	void OnImagePlaylistAdd(wxCommandEvent& event);
+
 	//komponenty menu na pasku
 	wxMenuBar* menubar;
 	wxMenu* quit;
 	
-	//kontroler mediów
+	//kontroler mediow
 	wxMediaCtrl* mediaCtrl;
+
+	//playlisty
+	wxListView* videoPlaylist;
+	wxListView* musicPlaylist;
+	wxListView* imagePlaylist;
 
 	//panel na player'a
 	wxPanel* playerPanel;
 
 	
-	bool loop; //zmienna boolowska czy zapêtlamy wyœwietlany plik (g³ównie do zdjêæ, które player zamyka³ po chwili)
-	wxFileOffset position; //tutaj przechowamy startow¹ pozycjê w czasie odtwarzanego pliku (dodane równie¿ z myœl¹ o zdjêciach aby player ich nie wy³¹cza³ po paru seknudach)
+	bool loop; //zmienna boolowska czy zapetlamy wyswietlany plik (glownie do zdjêc, które player zamykal po chwili)
+	wxFileOffset position; //tutaj przechowamy startowa pozycje w czasie odtwarzanego pliku (dodane rowniez z mysla o zdjeciach aby player ich nie wylaczal po paru seknudach)
 };
 

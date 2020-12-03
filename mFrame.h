@@ -20,11 +20,15 @@ public:
 	void LoadFile(const wxString& path, const wxString& fileType);
 	void OnMediaLoaded(wxMediaEvent& event);
 	void OnMediaFinished(wxMediaEvent& event);
+	void LoadFileFromPlaylist(const wxString& path, const wxString& playlistType);
 
 	//metody dotyczace playlist
 	void OnVideoPlaylistAdd(wxCommandEvent& event);
 	void OnMusicPlaylistAdd(wxCommandEvent& event);
 	void OnImagePlaylistAdd(wxCommandEvent& event);
+	void OnVideoPlaylistPlay(wxCommandEvent& event);
+	void OnMusicPlaylistPlay(wxCommandEvent& event);
+	void OnImagePlaylistPlay(wxCommandEvent& event);
 
 	//komponenty menu na pasku
 	wxMenuBar* menubar;

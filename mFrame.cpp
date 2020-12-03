@@ -28,7 +28,9 @@ mFrame::mFrame(const wxString& title)
 {
 	//inicjalizacja zmiennych
 	loop = false;
+	isPlayingFromPlaylist = false;
 	position = 0;
+	playlistFiles.Insert("", 0);
 
 	//pasek menu
 	menubar = new wxMenuBar;
@@ -160,11 +162,10 @@ mFrame::mFrame(const wxString& title)
 	Bind(wxEVT_BUTTON, &mFrame::OnVideoPlaylistAdd, this, wxID_BUTTON_PLAYLIST_ADD_VIDEO);
 	Bind(wxEVT_BUTTON, &mFrame::OnMusicPlaylistAdd, this, wxID_BUTTON_PLAYLIST_ADD_MUSIC);
 	Bind(wxEVT_BUTTON, &mFrame::OnImagePlaylistAdd, this, wxID_BUTTON_PLAYLIST_ADD_IMAGE);
-<<<<<<< HEAD
 	Bind(wxEVT_BUTTON, &mFrame::OnVideoPlaylistPlay, this, wxID_BUTTON_PLAYLIST_VIDEO_PLAY);
-=======
+	Bind(wxEVT_BUTTON, &mFrame::OnMusicPlaylistPlay, this, wxID_BUTTON_PLAYLIST_MUSIC_PLAY);
+	Bind(wxEVT_BUTTON, &mFrame::OnImagePlaylistPlay, this, wxID_BUTTON_PLAYLIST_IMAGE_PLAY);
 
->>>>>>> 58d7ec5bb2d939e959b9ecd87d8d060a21f26477
 }
 
 //metoda zamykajaca program
@@ -276,7 +277,6 @@ void mFrame::OnImagePlaylistAdd(wxCommandEvent& WXUNUSED(event)) {
 	}
 }
 
-<<<<<<< HEAD
 //metody odtwarzajace playlisty
 void mFrame::OnVideoPlaylistPlay(wxCommandEvent& WXUNUSED(event)) {
 	if (mediaCtrl->GetState() == wxMEDIASTATE_PLAYING || mediaCtrl->GetState() == wxMEDIASTATE_PAUSED) {
@@ -287,14 +287,18 @@ void mFrame::OnVideoPlaylistPlay(wxCommandEvent& WXUNUSED(event)) {
 		wxMessageBox(wxT("Playlist is empty!"));
 	}
 	else {
-		/*
-		long current;
-		videoPlaylist->Select(0, true);
-		current = videoPlaylist->GetFirstSelected();
+		long current = 0;
 		wxString test;
-		test = videoPlaylist->GetItemText(current, 2);
-		wxMessageBox(test);
-		*/
+		for (int i = 0; i < length; i++) {
+			//videoPlaylist->Select(i, true);
+			videoPlaylist->Focus(i);
+			current = videoPlaylist->GetFocusedItem();
+			test = videoPlaylist->GetItemText(current, 2);
+			playlistFiles.Insert(test, current);
+		}
+		//test = videoPlaylist->GetItemText(current, 2);
+		//wxString msg = playlistFiles.Item(0);
+		//wxMessageBox(msg);
 	}
 }
 void mFrame::OnMusicPlaylistPlay(wxCommandEvent& WXUNUSED(event)) {
@@ -335,8 +339,6 @@ void mFrame::OnImagePlaylistPlay(wxCommandEvent& WXUNUSED(event)) {
 		*/
 	}
 }
-=======
->>>>>>> 58d7ec5bb2d939e959b9ecd87d8d060a21f26477
 
 //metoda ladujaca plik i wyswietlajaca panel sterowania w zaleznosci od typu
 void mFrame::LoadFile(const wxString& path, const wxString& fileType) {
@@ -351,14 +353,11 @@ void mFrame::LoadFile(const wxString& path, const wxString& fileType) {
 	mediaCtrl->Load(path);
 }
 
-<<<<<<< HEAD
 //metoda ladujaca pliki z playlist w zaleznosci od jej typu
 void mFrame::LoadFileFromPlaylist(const wxString& path, const wxString& playlistType) {
 
 }
 
-=======
->>>>>>> 58d7ec5bb2d939e959b9ecd87d8d060a21f26477
 //metoda wywolywana gdy zostanie zaladowany plik i bedzie gotowy do odtworzenia
 void mFrame::OnMediaLoaded(wxMediaEvent& WXUNUSED(event)) {
 	mediaCtrl->Play();

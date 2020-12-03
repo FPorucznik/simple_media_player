@@ -29,6 +29,7 @@ public:
 	void OnVideoPlaylistPlay(wxCommandEvent& event);
 	void OnMusicPlaylistPlay(wxCommandEvent& event);
 	void OnImagePlaylistPlay(wxCommandEvent& event);
+	void OnVideoPlaylistDelete(wxCommandEvent& event);
 
 	//komponenty menu na pasku
 	wxMenuBar* menubar;
@@ -45,7 +46,9 @@ public:
 	//panel na player'a
 	wxPanel* playerPanel;
 
-	
+	wxArrayString playlistFiles; //tablica do przechowywania sciezek do plikow z playlist
+
+	bool isPlayingFromPlaylist; //zmienna boolowska czy media odtwarzane sa z playlisty
 	bool loop; //zmienna boolowska czy zapetlamy wyswietlany plik (glownie do zdjêc, które player zamykal po chwili)
 	wxFileOffset position; //tutaj przechowamy startowa pozycje w czasie odtwarzanego pliku (dodane rowniez z mysla o zdjeciach aby player ich nie wylaczal po paru seknudach)
 };

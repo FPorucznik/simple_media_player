@@ -29,6 +29,9 @@ public:
 	void OnVideoPlaylistPlay(wxCommandEvent& event);
 	void OnMusicPlaylistPlay(wxCommandEvent& event);
 	void OnImagePlaylistPlay(wxCommandEvent& event);
+	void OnVideoPlaylistStop(wxCommandEvent& event);
+	void OnMusicPlaylistStop(wxCommandEvent& event);
+	void OnImagePlaylistStop(wxCommandEvent& event);
 	void OnVideoPlaylistDelete(wxCommandEvent& event);
 
 	//komponenty menu na pasku
@@ -37,6 +40,20 @@ public:
 	
 	//kontroler mediow
 	wxMediaCtrl* mediaCtrl;
+
+	//przyciski
+	wxButton* deleteVideoFromPlaylistBtn;
+	wxButton* moveUpVideoInPlaylistBtn;
+	wxButton* moveDownVideoInPlaylistBtn;
+	wxButton* deleteMusicFromPlaylistBtn;
+	wxButton* moveUpMusicInPlaylistBtn;
+	wxButton* moveDownMusicInPlaylistBtn;
+	wxButton* deleteImageFromPlaylistBtn;
+	wxButton* moveUpImageInPlaylistBtn;
+	wxButton* moveDownImageInPlaylistBtn;
+	wxButton* stopVideoPlaylistBtn;
+	wxButton* stopMusicPlaylistBtn;
+	wxButton* stopImagePlaylistBtn;
 
 	//playlisty
 	wxListView* videoPlaylist;
@@ -47,6 +64,9 @@ public:
 	wxPanel* playerPanel;
 
 	wxArrayString playlistFiles; //tablica do przechowywania sciezek do plikow z playlist
+	int playlistFilesAmount; //ilosc plikow w playliscie
+	long selection; //do zaznaczenia aktualnie odtwarzanego pliku
+	wxString playlistType; //ktora z playlist jest odtwarzana
 
 	bool isPlayingFromPlaylist; //zmienna boolowska czy media odtwarzane sa z playlisty
 	bool loop; //zmienna boolowska czy zapetlamy wyswietlany plik (glownie do zdjêc, które player zamykal po chwili)

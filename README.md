@@ -8,7 +8,6 @@ Planowana jest różnorodna funkcjonalność np. odtwarzanie filmów, muzyki lub
 	 - obrazów
 - stwarzanie playlist wybranych plików
 - możliwość edycji obrazów i ich zapisu na dysk
-- biblioteka ulubionych plików 
 w razie dodania nowych funkcjonalności będzie o tym wspomniane w przyszłych raportach
 
 ## Technologie
@@ -39,9 +38,11 @@ RAPORT III (1.12.2020)
  - [x] oprogramowanie responsywności nowo umieszczonych elementów 
  - [x] zaprogramowanie możliwości dodania wybranego pliku do playlisty
 ---
+RAPORT IV (15.12.2020)
  - [x] zaprogramowanie odtwarzania playlisty
  - [x] zaprogramowanie usuwania wybranych elementów z playlisty
- - [ ] zaprogramowanie przycisków do zmiany kolejności plików w playliście
+ - [x] zaprogramowanie przycisków do zmiany kolejności plików w playliście
+ ---
  - [ ] rozpoczęcie pracy nad możliwością edycji zdjęć
 
  ...

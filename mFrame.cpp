@@ -190,6 +190,12 @@ mFrame::mFrame(const wxString& title)
 	Bind(wxEVT_BUTTON, &mFrame::OnVideoPlaylistDelete, this, wxID_BUTTON_PLAYLIST_VIDEO_DELETE);
 	Bind(wxEVT_BUTTON, &mFrame::OnMusicPlaylistDelete, this, wxID_BUTTON_PLAYLIST_MUSIC_DELETE);
 	Bind(wxEVT_BUTTON, &mFrame::OnImagePlaylistDelete, this, wxID_BUTTON_PLAYLIST_IMAGE_DELETE);
+	Bind(wxEVT_BUTTON, &mFrame::moveUpVideoInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_UP_VIDEO);
+	Bind(wxEVT_BUTTON, &mFrame::moveDownVideoInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_VIDEO);
+	Bind(wxEVT_BUTTON, &mFrame::moveUpMusicInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_UP_MUSIC);
+	Bind(wxEVT_BUTTON, &mFrame::moveDownMusicInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_MUSIC);
+	Bind(wxEVT_BUTTON, &mFrame::moveUpImageInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE);
+	Bind(wxEVT_BUTTON, &mFrame::moveDownImageInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE);
 
 }
 
@@ -542,6 +548,7 @@ void mFrame::OnMediaFinished(wxMediaEvent& WXUNUSED(event)) {
 		}
 	}
 }
+//metody zatrzymujace odtwarzana playliste
 void mFrame::OnVideoPlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 	mediaCtrl->Stop();
 	mediaCtrl->ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_NONE);
@@ -572,6 +579,7 @@ void mFrame::OnImagePlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 	stopVideoPlaylistBtn->Enable();
 	stopMusicPlaylistBtn->Enable();
 }
+//metody do usuwania wybranego elementu na playlistach
 void mFrame::OnVideoPlaylistDelete(wxCommandEvent& WXUNUSED(event)) {
 	long index = videoPlaylist->GetFirstSelected();
 	long count = videoPlaylist->GetItemCount();
@@ -646,6 +654,334 @@ void mFrame::OnImagePlaylistDelete(wxCommandEvent& WXUNUSED(event)) {
 				pos << i + 1;
 				imagePlaylist->SetItem(i, 0, pos);
 			}
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+//metody do przesuwania wybranego elementu na playlistach
+void mFrame::moveUpVideoInPlaylist(wxCommandEvent& WXUNUSED(event)) {
+	long index = videoPlaylist->GetFirstSelected();
+	long count = videoPlaylist->GetItemCount();
+	long current_selection = 0;
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			if (count == 1) {
+				wxMessageBox(wxT("There is only one file in this playlist!"));
+			}
+			else {
+				wxString selected_name = videoPlaylist->GetItemText(index, 1);
+				wxString selected_path = videoPlaylist->GetItemText(index, 2);
+				wxString up_name = "";
+				wxString up_path = "";
+
+				if (index == 0) {
+					wxMessageBox(wxT("The file is already at the top!"));
+				}
+				else {
+					up_name = videoPlaylist->GetItemText(index - 1, 1);
+					up_path = videoPlaylist->GetItemText(index - 1, 2);
+
+					videoPlaylist->SetItem(index - 1, 0, wxString(""));
+					videoPlaylist->SetItem(index - 1, 1, selected_name);
+					videoPlaylist->SetItem(index - 1, 2, selected_path);
+
+					videoPlaylist->SetItem(index, 0, wxString(""));
+					videoPlaylist->SetItem(index, 1, up_name);
+					videoPlaylist->SetItem(index, 2, up_path);
+
+					current_selection = index - 1;
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				videoPlaylist->SetItem(i, 0, pos);
+			}
+			videoPlaylist->Select(current_selection, true);
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+void mFrame::moveDownVideoInPlaylist(wxCommandEvent& WXUNUSED(event)) {
+	long index = videoPlaylist->GetFirstSelected();
+	long count = videoPlaylist->GetItemCount();
+	long current_selection = 0;
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			if (count == 1) {
+				wxMessageBox(wxT("There is only one file in this playlist!"));
+			}
+			else {
+				wxString selected_name = videoPlaylist->GetItemText(index, 1);
+				wxString selected_path = videoPlaylist->GetItemText(index, 2);
+				wxString down_name = "";
+				wxString down_path = "";
+
+				if (index == count - 1) {
+					wxMessageBox(wxT("The file is already at the bottom!"));
+					current_selection = count - 1;
+				}
+				else {
+					down_name = videoPlaylist->GetItemText(index + 1, 1);
+					down_path = videoPlaylist->GetItemText(index + 1, 2);
+
+					videoPlaylist->SetItem(index + 1, 0, wxString(""));
+					videoPlaylist->SetItem(index + 1, 1, selected_name);
+					videoPlaylist->SetItem(index + 1, 2, selected_path);
+
+					videoPlaylist->SetItem(index, 0, wxString(""));
+					videoPlaylist->SetItem(index, 1, down_name);
+					videoPlaylist->SetItem(index, 2, down_path);
+
+					current_selection = index + 1;
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				videoPlaylist->SetItem(i, 0, pos);
+			}
+			videoPlaylist->Select(current_selection, true);
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+void mFrame::moveUpMusicInPlaylist(wxCommandEvent& WXUNUSED(event)) {
+	long index = musicPlaylist->GetFirstSelected();
+	long count = musicPlaylist->GetItemCount();
+	long current_selection = 0;
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			if (count == 1) {
+				wxMessageBox(wxT("There is only one file in this playlist!"));
+			}
+			else {
+				wxString selected_name = musicPlaylist->GetItemText(index, 1);
+				wxString selected_path = musicPlaylist->GetItemText(index, 2);
+				wxString up_name = "";
+				wxString up_path = "";
+
+				if (index == 0) {
+					wxMessageBox(wxT("The file is already at the top!"));
+				}
+				else {
+					up_name = musicPlaylist->GetItemText(index - 1, 1);
+					up_path = musicPlaylist->GetItemText(index - 1, 2);
+
+					musicPlaylist->SetItem(index - 1, 0, wxString(""));
+					musicPlaylist->SetItem(index - 1, 1, selected_name);
+					musicPlaylist->SetItem(index - 1, 2, selected_path);
+
+					musicPlaylist->SetItem(index, 0, wxString(""));
+					musicPlaylist->SetItem(index, 1, up_name);
+					musicPlaylist->SetItem(index, 2, up_path);
+
+					current_selection = index - 1;
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				musicPlaylist->SetItem(i, 0, pos);
+			}
+			musicPlaylist->Select(current_selection, true);
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+void mFrame::moveDownMusicInPlaylist(wxCommandEvent& WXUNUSED(event)) {
+	long index = musicPlaylist->GetFirstSelected();
+	long count = musicPlaylist->GetItemCount();
+	long current_selection = 0;
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			if (count == 1) {
+				wxMessageBox(wxT("There is only one file in this playlist!"));
+			}
+			else {
+				wxString selected_name = musicPlaylist->GetItemText(index, 1);
+				wxString selected_path = musicPlaylist->GetItemText(index, 2);
+				wxString down_name = "";
+				wxString down_path = "";
+
+				if (index == count - 1) {
+					wxMessageBox(wxT("The file is already at the bottom!"));
+					current_selection = count - 1;
+				}
+				else {
+					down_name = musicPlaylist->GetItemText(index + 1, 1);
+					down_path = musicPlaylist->GetItemText(index + 1, 2);
+
+					musicPlaylist->SetItem(index + 1, 0, wxString(""));
+					musicPlaylist->SetItem(index + 1, 1, selected_name);
+					musicPlaylist->SetItem(index + 1, 2, selected_path);
+
+					musicPlaylist->SetItem(index, 0, wxString(""));
+					musicPlaylist->SetItem(index, 1, down_name);
+					musicPlaylist->SetItem(index, 2, down_path);
+
+					current_selection = index + 1;
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				musicPlaylist->SetItem(i, 0, pos);
+			}
+			musicPlaylist->Select(current_selection, true);
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+void mFrame::moveUpImageInPlaylist(wxCommandEvent& WXUNUSED(event)) {
+	long index = imagePlaylist->GetFirstSelected();
+	long count = imagePlaylist->GetItemCount();
+	long current_selection = 0;
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			if (count == 1) {
+				wxMessageBox(wxT("There is only one file in this playlist!"));
+			}
+			else {
+				wxString selected_name = imagePlaylist->GetItemText(index, 1);
+				wxString selected_path = imagePlaylist->GetItemText(index, 2);
+				wxString up_name = "";
+				wxString up_path = "";
+
+				if (index == 0) {
+					wxMessageBox(wxT("The file is already at the top!"));
+				}
+				else {
+					up_name = imagePlaylist->GetItemText(index - 1, 1);
+					up_path = imagePlaylist->GetItemText(index - 1, 2);
+
+					imagePlaylist->SetItem(index - 1, 0, wxString(""));
+					imagePlaylist->SetItem(index - 1, 1, selected_name);
+					imagePlaylist->SetItem(index - 1, 2, selected_path);
+
+					imagePlaylist->SetItem(index, 0, wxString(""));
+					imagePlaylist->SetItem(index, 1, up_name);
+					imagePlaylist->SetItem(index, 2, up_path);
+
+					current_selection = index - 1;
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				imagePlaylist->SetItem(i, 0, pos);
+			}
+			imagePlaylist->Select(current_selection, true);
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+void mFrame::moveDownImageInPlaylist(wxCommandEvent& WXUNUSED(event)) {
+	long index = imagePlaylist->GetFirstSelected();
+	long count = imagePlaylist->GetItemCount();
+	long current_selection = 0;
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			if (count == 1) {
+				wxMessageBox(wxT("There is only one file in this playlist!"));
+			}
+			else {
+				wxString selected_name = imagePlaylist->GetItemText(index, 1);
+				wxString selected_path = imagePlaylist->GetItemText(index, 2);
+				wxString down_name = "";
+				wxString down_path = "";
+
+				if (index == count - 1) {
+					wxMessageBox(wxT("The file is already at the bottom!"));
+					current_selection = count - 1;
+				}
+				else {
+					down_name = imagePlaylist->GetItemText(index + 1, 1);
+					down_path = imagePlaylist->GetItemText(index + 1, 2);
+
+					imagePlaylist->SetItem(index + 1, 0, wxString(""));
+					imagePlaylist->SetItem(index + 1, 1, selected_name);
+					imagePlaylist->SetItem(index + 1, 2, selected_path);
+
+					imagePlaylist->SetItem(index, 0, wxString(""));
+					imagePlaylist->SetItem(index, 1, down_name);
+					imagePlaylist->SetItem(index, 2, down_path);
+
+					current_selection = index + 1;
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				imagePlaylist->SetItem(i, 0, pos);
+			}
+			imagePlaylist->Select(current_selection, true);
 		}
 	}
 	else {

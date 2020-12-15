@@ -35,6 +35,12 @@ public:
 	void OnVideoPlaylistDelete(wxCommandEvent& event);
 	void OnMusicPlaylistDelete(wxCommandEvent& event);
 	void OnImagePlaylistDelete(wxCommandEvent& event);
+	void moveUpVideoInPlaylist(wxCommandEvent& event);
+	void moveDownVideoInPlaylist(wxCommandEvent& event);
+	void moveUpMusicInPlaylist(wxCommandEvent& event);
+	void moveDownMusicInPlaylist(wxCommandEvent& event);
+	void moveUpImageInPlaylist(wxCommandEvent& event);
+	void moveDownImageInPlaylist(wxCommandEvent& event);
 
 	//komponenty menu na pasku
 	wxMenuBar* menubar;

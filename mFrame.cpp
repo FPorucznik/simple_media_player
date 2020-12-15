@@ -71,7 +71,8 @@ mFrame::mFrame(const wxString& title)
 	moveUpVideoInPlaylistBtn = new wxButton(videoCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_UP_VIDEO, wxT("Move Up"));
 	moveDownVideoInPlaylistBtn = new wxButton(videoCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_DOWN_VIDEO, wxT("Move Down"));
 	
-	videoPlaylist = new wxListView(videoCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500,300), wxLC_REPORT);
+	videoPlaylist = new wxListView(videoCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500,300));
+	videoPlaylist->SetSingleStyle(wxLC_SINGLE_SEL);
 	videoPlaylist->AppendColumn("Pos.", wxLIST_FORMAT_LEFT, 50);
 	videoPlaylist->AppendColumn("Name", wxLIST_FORMAT_LEFT, 250);
 	videoPlaylist->AppendColumn("Path", wxLIST_FORMAT_LEFT, 200);
@@ -86,7 +87,8 @@ mFrame::mFrame(const wxString& title)
 	moveUpMusicInPlaylistBtn = new wxButton(musicCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_UP_MUSIC, wxT("Move Up"));
 	moveDownMusicInPlaylistBtn = new wxButton(musicCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_DOWN_MUSIC, wxT("Move Down"));
 
-	musicPlaylist = new wxListView(musicCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500, 300), wxLC_REPORT);
+	musicPlaylist = new wxListView(musicCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500, 300));
+	musicPlaylist->SetSingleStyle(wxLC_SINGLE_SEL);
 	musicPlaylist->AppendColumn("Pos.", wxLIST_FORMAT_LEFT, 50);
 	musicPlaylist->AppendColumn("Name", wxLIST_FORMAT_LEFT, 250);
 	musicPlaylist->AppendColumn("Path", wxLIST_FORMAT_LEFT, 200);
@@ -100,7 +102,8 @@ mFrame::mFrame(const wxString& title)
 	moveUpImageInPlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE, wxT("Move Up"));
 	moveDownImageInPlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE, wxT("Move Down"));
 
-	imagePlaylist = new wxListView(imagesCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500, 300), wxLC_REPORT);
+	imagePlaylist = new wxListView(imagesCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500, 300));
+	imagePlaylist->SetSingleStyle(wxLC_SINGLE_SEL);
 	imagePlaylist->AppendColumn("Pos.", wxLIST_FORMAT_LEFT, 50);
 	imagePlaylist->AppendColumn("Name", wxLIST_FORMAT_LEFT, 250);
 	imagePlaylist->AppendColumn("Path", wxLIST_FORMAT_LEFT, 200);
@@ -184,6 +187,9 @@ mFrame::mFrame(const wxString& title)
 	Bind(wxEVT_BUTTON, &mFrame::OnVideoPlaylistStop, this, wxID_BUTTON_PLAYLIST_VIDEO_STOP);
 	Bind(wxEVT_BUTTON, &mFrame::OnMusicPlaylistStop, this, wxID_BUTTON_PLAYLIST_MUSIC_STOP);
 	Bind(wxEVT_BUTTON, &mFrame::OnImagePlaylistStop, this, wxID_BUTTON_PLAYLIST_IMAGE_STOP);
+	Bind(wxEVT_BUTTON, &mFrame::OnVideoPlaylistDelete, this, wxID_BUTTON_PLAYLIST_VIDEO_DELETE);
+	Bind(wxEVT_BUTTON, &mFrame::OnMusicPlaylistDelete, this, wxID_BUTTON_PLAYLIST_MUSIC_DELETE);
+	Bind(wxEVT_BUTTON, &mFrame::OnImagePlaylistDelete, this, wxID_BUTTON_PLAYLIST_IMAGE_DELETE);
 
 }
 
@@ -538,6 +544,7 @@ void mFrame::OnMediaFinished(wxMediaEvent& WXUNUSED(event)) {
 }
 void mFrame::OnVideoPlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 	mediaCtrl->Stop();
+	mediaCtrl->ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_NONE);
 	videoPlaylist->Enable();
 	deleteVideoFromPlaylistBtn->Enable();
 	moveUpVideoInPlaylistBtn->Enable();
@@ -547,6 +554,7 @@ void mFrame::OnVideoPlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 }
 void mFrame::OnMusicPlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 	mediaCtrl->Stop();
+	mediaCtrl->ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_NONE);
 	musicPlaylist->Enable();
 	deleteMusicFromPlaylistBtn->Enable();
 	moveUpMusicInPlaylistBtn->Enable();
@@ -556,12 +564,98 @@ void mFrame::OnMusicPlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 }
 void mFrame::OnImagePlaylistStop(wxCommandEvent& WXUNUSED(event)) {
 	mediaCtrl->Stop();
+	mediaCtrl->ShowPlayerControls(wxMEDIACTRLPLAYERCONTROLS_NONE);
 	imagePlaylist->Enable();
 	deleteImageFromPlaylistBtn->Enable();
 	moveUpImageInPlaylistBtn->Enable();
 	moveDownImageInPlaylistBtn->Enable();
 	stopVideoPlaylistBtn->Enable();
 	stopMusicPlaylistBtn->Enable();
+}
+void mFrame::OnVideoPlaylistDelete(wxCommandEvent& WXUNUSED(event)) {
+	long index = videoPlaylist->GetFirstSelected();
+	long count = videoPlaylist->GetItemCount();
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			videoPlaylist->DeleteItem(index);
+			count = videoPlaylist->GetItemCount();
+			long current = 0;
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				videoPlaylist->SetItem(i, 0, pos);
+			}
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+}
+void mFrame::OnMusicPlaylistDelete(wxCommandEvent& WXUNUSED(event)) {
+	long index = musicPlaylist->GetFirstSelected();
+	long count = musicPlaylist->GetItemCount();
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			musicPlaylist->DeleteItem(index);
+			count = musicPlaylist->GetItemCount();
+			long current = 0;
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				musicPlaylist->SetItem(i, 0, pos);
+			}
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
+
+}
+void mFrame::OnImagePlaylistDelete(wxCommandEvent& WXUNUSED(event)) {
+	long index = imagePlaylist->GetFirstSelected();
+	long count = imagePlaylist->GetItemCount();
+	if (index != -1) {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			imagePlaylist->DeleteItem(index);
+			count = imagePlaylist->GetItemCount();
+			long current = 0;
+
+			for (int i = 0; i < count; i++) {
+				wxString pos;
+				pos << i + 1;
+				imagePlaylist->SetItem(i, 0, pos);
+			}
+		}
+	}
+	else {
+		if (count == 0) {
+			wxMessageBox(wxT("Playlist is empty!"));
+		}
+		else {
+			wxMessageBox(wxT("No file selected"));
+		}
+	}
 }
 mFrame::~mFrame() {
 }

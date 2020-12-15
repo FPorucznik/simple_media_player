@@ -40,7 +40,7 @@ RAPORT III (1.12.2020)
  - [x] zaprogramowanie możliwości dodania wybranego pliku do playlisty
 ---
  - [x] zaprogramowanie odtwarzania playlisty
- - [ ] zaprogramowanie usuwania wybranych elementów z playlisty
+ - [x] zaprogramowanie usuwania wybranych elementów z playlisty
  - [ ] zaprogramowanie przycisków do zmiany kolejności plików w playliście
  - [ ] rozpoczęcie pracy nad możliwością edycji zdjęć
 

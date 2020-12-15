@@ -33,6 +33,8 @@ public:
 	void OnMusicPlaylistStop(wxCommandEvent& event);
 	void OnImagePlaylistStop(wxCommandEvent& event);
 	void OnVideoPlaylistDelete(wxCommandEvent& event);
+	void OnMusicPlaylistDelete(wxCommandEvent& event);
+	void OnImagePlaylistDelete(wxCommandEvent& event);
 
 	//komponenty menu na pasku
 	wxMenuBar* menubar;

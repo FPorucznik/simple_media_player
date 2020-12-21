@@ -22,7 +22,7 @@ Ewentualne dodatkowe biblioteki potrzebne na rzecz rozwoju projektu zostaną dop
  - [x] napisanie i wyświetlenie pierwszego okna
  - [x] napisanie pierwszego podstawowego menu 
  - [x] projekt wstępnego layout'u obiektów w oknie
- - [x] dodanie responsywności obiektów a oknie
+ - [x] dodanie responsywności obiektów w oknie
 ---
  RAPORT II (17.11.2020)
  - [x] dodanie odtwarzacza do jednego z panelów
@@ -43,7 +43,12 @@ RAPORT IV (15.12.2020)
  - [x] zaprogramowanie usuwania wybranych elementów z playlisty
  - [x] zaprogramowanie przycisków do zmiany kolejności plików w playliście
  ---
- - [ ] rozpoczęcie pracy nad możliwością edycji zdjęć
+ - [x] dodanie przycisku otwierającego okno edytora zdjęć
+ - [x] stworzenie okna edytora zdjęć
+ - [ ] dodanie opcji otwarcia obrazu w edytorze
+ - [ ] dodanie możliwości obrotu otwartego obrazu
+ - [ ] dodanie możliwości rysowania na obrazie
+-  [ ] dodanie opcji zapisu edytowanego zdjęcia na dysku
 
  ...
  

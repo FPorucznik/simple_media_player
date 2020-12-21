@@ -23,7 +23,8 @@ enum {
 	wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE,
 	wxID_BUTTON_PLAYLIST_MOVE_DOWN_VIDEO,
 	wxID_BUTTON_PLAYLIST_MOVE_DOWN_MUSIC,
-	wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE
+	wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE,
+	wxID_BUTTON_OPEN_IMAGE_EDITOR
 };
 
 mFrame::mFrame(const wxString& title)
@@ -102,6 +103,8 @@ mFrame::mFrame(const wxString& title)
 	moveUpImageInPlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE, wxT("Move Up"));
 	moveDownImageInPlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE, wxT("Move Down"));
 
+	openImageEditorBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_OPEN_IMAGE_EDITOR, wxT("open editor"));
+
 	imagePlaylist = new wxListView(imagesCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500, 300));
 	imagePlaylist->SetSingleStyle(wxLC_SINGLE_SEL);
 	imagePlaylist->AppendColumn("Pos.", wxLIST_FORMAT_LEFT, 50);
@@ -148,6 +151,8 @@ mFrame::mFrame(const wxString& title)
 	imagesTabSizer->Add(deleteImageFromPlaylistBtn, 0, wxALIGN_CENTER_HORIZONTAL);
 	imagesTabSizer->Add(moveUpImageInPlaylistBtn, 0, wxALIGN_CENTER_HORIZONTAL);
 	imagesTabSizer->Add(moveDownImageInPlaylistBtn, 0, wxALIGN_CENTER_HORIZONTAL);
+
+	imagesTabSizer->Add(openImageEditorBtn, 0, wxALIGN_CENTER_HORIZONTAL);
 	imagesCtrlPanel->SetSizer(imagesTabSizer);
 	//------------------------------------------------
 
@@ -171,7 +176,7 @@ mFrame::mFrame(const wxString& title)
 	SetSizerAndFit(topSizer);
 
 	
-	//polaczenie eventow z przyciskami i odpowiadajacymi im metodami (lepszy sposob niz tabela eventow)
+	//event handlery
 	Bind(wxEVT_MEDIA_LOADED, &mFrame::OnMediaLoaded, this, wxID_MEDIACTRL);
 	Bind(wxEVT_BUTTON, &mFrame::OnVideoOpen, this, wxID_BUTTON_VIDEO_LOAD);
 	Bind(wxEVT_BUTTON, &mFrame::OnMusicOpen, this, wxID_BUTTON_MUSIC_LOAD);
@@ -196,6 +201,8 @@ mFrame::mFrame(const wxString& title)
 	Bind(wxEVT_BUTTON, &mFrame::moveDownMusicInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_MUSIC);
 	Bind(wxEVT_BUTTON, &mFrame::moveUpImageInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE);
 	Bind(wxEVT_BUTTON, &mFrame::moveDownImageInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE);
+
+	Bind(wxEVT_BUTTON, &mFrame::openImageEditor, this, wxID_BUTTON_OPEN_IMAGE_EDITOR);
 
 }
 
@@ -992,6 +999,11 @@ void mFrame::moveDownImageInPlaylist(wxCommandEvent& WXUNUSED(event)) {
 			wxMessageBox(wxT("No file selected"));
 		}
 	}
+}
+
+void mFrame::openImageEditor(wxCommandEvent& WXUNUSED(event)) {
+	imageDialog* test = new imageDialog(wxT("Image editor"));
+	test->Show(true);
 }
 mFrame::~mFrame() {
 }

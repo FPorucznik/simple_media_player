@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="imageDialog.h" />
     <ClInclude Include="include.h" />
     <ClInclude Include="mainApp.h" />
     <ClInclude Include="mFrame.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="imageDialog.cpp" />
     <ClCompile Include="mainApp.cpp" />
     <ClCompile Include="mFrame.cpp" />
   </ItemGroup>

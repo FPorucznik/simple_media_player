@@ -42,6 +42,8 @@ public:
 	void moveUpImageInPlaylist(wxCommandEvent& event);
 	void moveDownImageInPlaylist(wxCommandEvent& event);
 
+	void openImageEditor(wxCommandEvent& event);
+
 	//komponenty menu na pasku
 	wxMenuBar* menubar;
 	wxMenu* quit;
@@ -62,6 +64,8 @@ public:
 	wxButton* stopVideoPlaylistBtn;
 	wxButton* stopMusicPlaylistBtn;
 	wxButton* stopImagePlaylistBtn;
+
+	wxButton* openImageEditorBtn;
 
 	//playlisty
 	wxListView* videoPlaylist;

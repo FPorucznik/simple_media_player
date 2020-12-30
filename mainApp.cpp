@@ -15,6 +15,8 @@ mainApp::~mainApp() {
 
 bool mainApp::OnInit()
 {
+	wxInitAllImageHandlers();
+
 	mFrame* frame = new mFrame(wxT("SimpleMediaPlayer"));
 
 	frame->Show(true);

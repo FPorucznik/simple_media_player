@@ -45,7 +45,7 @@ RAPORT IV (15.12.2020)
  ---
  - [x] dodanie przycisku otwierającego okno edytora zdjęć
  - [x] stworzenie okna edytora zdjęć
- - [ ] dodanie opcji otwarcia obrazu w edytorze
+ - [x] dodanie opcji otwarcia obrazu w edytorze
  - [ ] dodanie możliwości obrotu otwartego obrazu
  - [ ] dodanie możliwości rysowania na obrazie
 -  [ ] dodanie opcji zapisu edytowanego zdjęcia na dysku

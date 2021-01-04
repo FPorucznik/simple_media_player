@@ -103,7 +103,7 @@ mFrame::mFrame(const wxString& title)
 	moveUpImageInPlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE, wxT("Move Up"));
 	moveDownImageInPlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE, wxT("Move Down"));
 
-	openImageEditorBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_OPEN_IMAGE_EDITOR, wxT("open editor"));
+	openImageEditorBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_OPEN_IMAGE_EDITOR, wxT("Open editor"));
 
 	imagePlaylist = new wxListView(imagesCtrlPanel, wxID_ANY, wxDefaultPosition, wxSize(500, 300));
 	imagePlaylist->SetSingleStyle(wxLC_SINGLE_SEL);
@@ -201,7 +201,6 @@ mFrame::mFrame(const wxString& title)
 	Bind(wxEVT_BUTTON, &mFrame::moveDownMusicInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_MUSIC);
 	Bind(wxEVT_BUTTON, &mFrame::moveUpImageInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_UP_IMAGE);
 	Bind(wxEVT_BUTTON, &mFrame::moveDownImageInPlaylist, this, wxID_BUTTON_PLAYLIST_MOVE_DOWN_IMAGE);
-
 	Bind(wxEVT_BUTTON, &mFrame::openImageEditor, this, wxID_BUTTON_OPEN_IMAGE_EDITOR);
 
 }
@@ -1000,10 +999,10 @@ void mFrame::moveDownImageInPlaylist(wxCommandEvent& WXUNUSED(event)) {
 		}
 	}
 }
-
+//metoda otwierajaca edytor zdjec
 void mFrame::openImageEditor(wxCommandEvent& WXUNUSED(event)) {
-	imageDialog* test = new imageDialog(wxT("Image editor"));
-	test->Show(true);
+	imageDialog* imageEditor = new imageDialog(wxT("Image editor"));
+	imageEditor->Show(true);
 }
 mFrame::~mFrame() {
 }

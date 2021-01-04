@@ -8,7 +8,8 @@ Planowana jest różnorodna funkcjonalność np. odtwarzanie filmów, muzyki lub
 	 - obrazów
 - stwarzanie playlist wybranych plików
 - możliwość edycji obrazów i ich zapisu na dysk
-w razie dodania nowych funkcjonalności będzie o tym wspomniane w przyszłych raportach
+
+W razie dodania nowych funkcjonalności będzie o tym wspomniane w przyszłych raportach
 
 ## Technologie
 - C++
@@ -46,9 +47,9 @@ RAPORT IV (15.12.2020)
  - [x] dodanie przycisku otwierającego okno edytora zdjęć
  - [x] stworzenie okna edytora zdjęć
  - [x] dodanie opcji otwarcia obrazu w edytorze
- - [ ] dodanie możliwości obrotu otwartego obrazu
+ - [x] dodanie możliwości obrotu otwartego obrazu
  - [ ] dodanie możliwości rysowania na obrazie
--  [ ] dodanie opcji zapisu edytowanego zdjęcia na dysku
+-  [x] dodanie opcji zapisu edytowanego zdjęcia na dysku
 
  ...
  

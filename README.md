@@ -48,8 +48,15 @@ RAPORT IV (15.12.2020)
  - [x] stworzenie okna edytora zdjęć
  - [x] dodanie opcji otwarcia obrazu w edytorze
  - [x] dodanie możliwości obrotu otwartego obrazu
- - [ ] dodanie możliwości rysowania na obrazie
--  [x] dodanie opcji zapisu edytowanego zdjęcia na dysku
+ - [x] dodanie możliwości rysowania na obrazie
+ - [x] dodanie opcji zapisu edytowanego zdjęcia na dysku
+ 
+ Prototyp na 12.01.2020 jest gotowy
+
+ Ewentualne dodatki przed oddaniem finalnej wersji:
+ - [ ] dodanie wyboru kilku kolorów w edytorze zdjęć
+ - [ ] lepsze uporządkowanie ustawienia przycisków
+ - [ ] uporządkowanie kodu
 
  ...
  

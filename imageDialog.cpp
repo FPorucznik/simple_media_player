@@ -181,7 +181,7 @@ void imageDialog::onMouseLeftMove(wxMouseEvent& event) {
         pen.SetWidth(10);
         pen.SetColour(*wxBLACK);
         memoryDC->SetPen(pen);
-        imageClientDC->SetPen(*wxBLACK);
+        imageClientDC->SetPen(pen);
         imageClientDC->DrawLine(movingMousePosition, mousePosition);
 
         int panelWidth = 0;

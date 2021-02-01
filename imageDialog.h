@@ -17,6 +17,7 @@ public:
 	wxButton* rotateImageBtn;
 	wxButton* loadImageToEditorBtn;
 	wxButton* clearEditorBtn;
+	wxComboBox* colorBox;
 
 	//bitmapy do wyswietlania zdjec
 	wxBitmap imageBitmap;
@@ -37,6 +38,10 @@ public:
 	void onMouseLeftMove(wxMouseEvent& event);
 	void onMouseLeftPressed(wxMouseEvent& event);
 	void onMouseLeftUp(wxMouseEvent& event);
+	void colorBlack(wxCommandEvent& event);
+	void colorRed(wxCommandEvent& event);
+	void colorGreen(wxCommandEvent& event);
+	void colorBlue(wxCommandEvent& event);
 
 	//zmienne przechowujace stan myszki
 	bool isPressed;
@@ -46,4 +51,5 @@ public:
 	float widthScaleValue;
 	float rotatedWidthScale;
 	float rotatedHeightScale;
+	wxColour color;
 };

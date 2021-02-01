@@ -118,7 +118,6 @@ mFrame::mFrame(const wxString& title)
 	stopImagePlaylistBtn = new wxButton(imagesCtrlPanel, wxID_BUTTON_PLAYLIST_IMAGE_STOP, wxT("Stop slideshow"));
 
 
-
 	//stworzenie sizerow dla kazdej zakladki (videos, music, images)
 	wxBoxSizer* videoTabSizer = new wxBoxSizer(wxVERTICAL);
 	videoTabSizer->Add(videoLoadBtn, 0, wxALIGN_CENTER_HORIZONTAL);

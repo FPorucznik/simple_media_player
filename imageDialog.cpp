@@ -6,7 +6,11 @@ enum {
     wxID_BUTTON_EDITOR_LOAD,
     wxID_BUTTON_EDITOR_SAVE,
     wxID_BUTTON_EDITOR_ROTATE,
-    wxID_BUTTON_EDITOR_CLEAR
+    wxID_BUTTON_EDITOR_CLEAR,
+    wxID_BLACK,
+    wxID_RED,
+    wxID_GREEN,
+    wxID_BLUE
 };
 
 imageDialog::imageDialog(const wxString& title)
@@ -32,17 +36,31 @@ imageDialog::imageDialog(const wxString& title)
     saveImageFromEditorBtn = new wxButton(mainPanel, wxID_BUTTON_EDITOR_SAVE, wxT("Save image"));
     rotateImageBtn = new wxButton(mainPanel, wxID_BUTTON_EDITOR_ROTATE, wxT("Rotate image"));
     clearEditorBtn = new wxButton(mainPanel, wxID_BUTTON_EDITOR_CLEAR, wxT("Clear editor"));
+    wxStaticText* penText = new wxStaticText(mainPanel, wxID_ANY, wxT("Pen color: "));
+    wxRadioButton* blackRB = new wxRadioButton(mainPanel, wxID_BLACK, wxT("Black"));
+    blackRB->SetValue(true);
+    wxRadioButton* redRB = new wxRadioButton(mainPanel, wxID_RED, wxT("Red"));
+    wxRadioButton* greenRB = new wxRadioButton(mainPanel, wxID_GREEN, wxT("Green"));
+    wxRadioButton* blueRB = new wxRadioButton(mainPanel, wxID_BLUE, wxT("Blue"));
     hsizerControls->Add(loadImageToEditorBtn);
     hsizerControls->Add(saveImageFromEditorBtn);
     hsizerControls->Add(rotateImageBtn);
+    hsizerControls->Add(penText);
+    hsizerControls->Add(blackRB);
+    hsizerControls->Add(redRB);
+    hsizerControls->Add(greenRB);
+    hsizerControls->Add(blueRB);
     hsizerControls->Add(clearEditorBtn);
     vsizer->Add(hsizerControls, 0);
     vsizer->Add(-1, 50);
+
+
 
     mainPanel->SetSizer(vsizer);
 
     isPressed = false;
     rotationState = 0;
+    color = *wxBLACK;
 
     //wstepne zablokowanie przyciskow
     saveImageFromEditorBtn->Disable();
@@ -54,6 +72,10 @@ imageDialog::imageDialog(const wxString& title)
     Bind(wxEVT_BUTTON, &imageDialog::saveImage, this, wxID_BUTTON_EDITOR_SAVE);
     Bind(wxEVT_BUTTON, &imageDialog::rotate, this, wxID_BUTTON_EDITOR_ROTATE);
     Bind(wxEVT_BUTTON, &imageDialog::clearEditor, this, wxID_BUTTON_EDITOR_CLEAR);
+    Bind(wxEVT_RADIOBUTTON, &imageDialog::colorBlack, this, wxID_BLACK);
+    Bind(wxEVT_RADIOBUTTON, &imageDialog::colorRed, this, wxID_RED);
+    Bind(wxEVT_RADIOBUTTON, &imageDialog::colorGreen, this, wxID_GREEN);
+    Bind(wxEVT_RADIOBUTTON, &imageDialog::colorBlue, this, wxID_BLUE);
     editorPanel->Bind(wxEVT_LEFT_DOWN, &imageDialog::onMouseLeftPressed, this);
     editorPanel->Bind(wxEVT_LEFT_UP, &imageDialog::onMouseLeftUp, this);
     editorPanel->Bind(wxEVT_MOTION, &imageDialog::onMouseLeftMove, this);
@@ -179,7 +201,7 @@ void imageDialog::onMouseLeftMove(wxMouseEvent& event) {
         
         wxPen pen;
         pen.SetWidth(10);
-        pen.SetColour(*wxBLACK);
+        pen.SetColour(color);
         memoryDC->SetPen(pen);
         imageClientDC->SetPen(pen);
         imageClientDC->DrawLine(movingMousePosition, mousePosition);
@@ -207,4 +229,17 @@ void imageDialog::onMouseLeftPressed(wxMouseEvent& event) {
 void imageDialog::onMouseLeftUp(wxMouseEvent& event) {
     isPressed = false;
     //scaleImageToEditor(imageBitmap.GetWidth(), imageBitmap.GetHeight());
+}
+//metoda zmieniajaca kolor pedzla
+void imageDialog::colorBlack(wxCommandEvent& WXUNUSED(event)) {
+    color = *wxBLACK;
+}
+void imageDialog::colorRed(wxCommandEvent& WXUNUSED(event)) {
+    color = *wxRED;
+}
+void imageDialog::colorGreen(wxCommandEvent& WXUNUSED(event)) {
+    color = *wxGREEN;
+}
+void imageDialog::colorBlue(wxCommandEvent& WXUNUSED(event)) {
+    color = *wxBLUE;
 }

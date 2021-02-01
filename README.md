@@ -53,14 +53,12 @@ RAPORT IV (15.12.2020)
  
  Prototyp na 12.01.2020 jest gotowy
 
- Ewentualne dodatki przed oddaniem finalnej wersji:
- - [ ] dodanie wyboru kilku kolorów w edytorze zdjęć
- - [ ] lepsze uporządkowanie ustawienia przycisków
- - [ ] uporządkowanie kodu
+Do finalnej wersji dodano:
+ - [x] dodanie wyboru kilku kolorów w edytorze zdjęć
+ - [x] uporządkowanie kodu
 
- ...
- 
- Następne zadania będą dodawane wraz z rozwojem projektu
+Finalna wersja na 02.02.2021 jest gotowa
 
 Start projektu: 20.10.2020
+Koniec projektu: 02.02.2021
  
